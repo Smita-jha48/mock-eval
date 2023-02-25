@@ -1,0 +1,11 @@
+.Nav-Bar {
+    background-color: var(--accent-color-dark);
+
+}
+
+.Nav-Icon {
+    width: 500px;
+    color: white;
+    padding: 10px 20px;
+}
+

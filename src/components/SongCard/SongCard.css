@@ -1,0 +1,34 @@
+.card-body{
+    width: 250px;
+    background-color: var(--background-light-card);
+    gap: 10px;
+    border-radius: 15px;
+}
+
+.card-img{
+    border-radius: 50%;
+    width: 230px;
+    margin: 10px;
+}
+.song-name{
+   height: 30px;
+   width: 150px;
+   white-space: nowrap; 
+   overflow: hidden;
+   text-overflow: ellipsis; 
+    
+}
+.left-section {
+    flex-direction: column;
+}
+
+
+.card-footer{
+    display: -webkit-flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.heart-img{
+    margin-bottom: 5px;
+}

@@ -1,0 +1,13 @@
+.Main-Content {
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.Main-Content p {
+    color: var( --background-dark-card);
+    font-size: 2rem;
+}
+

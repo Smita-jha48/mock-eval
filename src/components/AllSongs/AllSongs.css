@@ -1,0 +1,28 @@
+.container-card {
+    max-width: 900px;
+    margin-inline: auto;
+    padding-inline: var(--padding-inline-section);
+    background-color: var(--page-background);
+}
+
+.top-bar {
+    padding-top: 20px;
+    margin-inline: 80px;
+    justify-content: space-between;
+}
+
+.logo-content {
+    width: 400px;
+}
+.logo-img{
+    justify-content: end;
+}
+.card-content {
+    justify-content: center;
+    padding-top: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.each-card-content {
+    
+}
