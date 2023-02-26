@@ -1,17 +1,17 @@
 .card-body{
     width: 250px;
-    background-color: var(--background-light-card);
+    height: 250px;
     gap: 10px;
     border-radius: 15px;
+    box-shadow: 2px 2px 5px gray;
 }
-
 .card-img{
     border-radius: 50%;
-    width: 230px;
-    margin: 10px;
+    width: 170px;
+    margin: 20px 20px 0px 40px;
 }
 .song-name{
-   height: 30px;
+   height: 25px;
    width: 150px;
    white-space: nowrap; 
    overflow: hidden;
@@ -21,8 +21,6 @@
 .left-section {
     flex-direction: column;
 }
-
-
 .card-footer{
     display: -webkit-flex;
     justify-content: space-around;
@@ -31,4 +29,16 @@
 
 .heart-img{
     margin-bottom: 5px;
+}
+
+.heart-count{
+ position: relative;
+  text-align: center;
+  color: white;
+}
+.count{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

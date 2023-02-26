@@ -4,18 +4,22 @@ import { useNavigate } from "react-router-dom";
 import makeRequest from '../../utils/makeRequest'
 import {GET_SONG_DATA, GET_SONG_LIKE, UPDATE_SONG_DATA } from '../../constants/apiEndPoints'
 import sortIcon from '../../assets/Image/icon-genre.svg'
+import gridIcon from '../../assets/Image/icon-grid.svg'
 import SongCard from '../SongCard'
+import SortedSongs from '../SortedSongs';
 import likeCount from '../../utils/LikeCountMapper';
+import cardBackgroundColor from '../../constants/cardColor';
 import './AllSongs.css';
 
 function AllSongs() {
     const [songData, setSongData] = useState([]);
     const [countLike,setCountLike] = useState([]);
     const [clicked,setClicked] = useState(false);
+    const [genre,setGenre] = useState([]);
+    const [sortdata, setSortdata] = useState();
     const navigate = useNavigate();
 
     useEffect( () => {
-       
         makeRequest(GET_SONG_DATA, {}, navigate)
         .then((response) =>{
          return likeCount(response.data,navigate);
@@ -24,58 +28,54 @@ function AllSongs() {
           
           setCountLike(response.likeMapper);
           setSongData(response.musicData);
+          setGenre(response.uniqueGenre);
         })
      }, []);
       const handleLike = async(id, index) =>{
         try {
-              await makeRequest(UPDATE_SONG_DATA(id), {
+              const data = await makeRequest(UPDATE_SONG_DATA(id), {
                 data: {
-                  count: countLike.count+1,
-                  like: !countLike.like
+                  like: !countLike[index].like
                 }
               })
               const newLikeCount = [...countLike];
-              newLikeCount[index] = {like: !newLikeCount[index].like, count: newLikeCount[index].count+1 }
+              
+              newLikeCount[index] = {...data.data}
               setCountLike(newLikeCount);
             }
             catch(e){ }
-      }
+          }
 
       const handleSort = (clicked) =>{
-        setClicked(!clicked);
-          if(clicked === false)
+
+         if(clicked === true)
           {
-            
-            const key = 'genre.name';
-            function groupBy(key) {
-              return function group(songData) {
-                return songData.reduce((acc, obj) => {
-                  const property = obj[key];
-                  acc[property] = acc[property] || [];
-                  acc[property].push(obj);
-                  return acc;
-                }, {});
-              };
+             let obj = {}
+              genre.forEach((uniqueGenre)=>{
+              let filtered_fruits = songData.filter((Genre) =>
+              Genre.genre.name === uniqueGenre);
+              obj[uniqueGenre] = filtered_fruits;
+              
+            })
+             setSortdata(obj);
             }
-            
-            const groupByYear = groupBy(key);
-            console.log(groupByYear(songData));
-            
-            
+            setClicked(clicked);
           }
-      }
      
     return (
         <div className='container-card'>
                 <div className='top-bar flex'>
-                <h1 className='logo-content'>all songs</h1>
-                <img className='logo-img flex'src={sortIcon} alt='sort icon' onClick={()=>handleSort(clicked)}></img>
+                <h1 className='logo-content'>{clicked?'Genres':'all songs'}</h1>
+                <img className='logo-img flex' src={clicked? gridIcon:sortIcon} alt='sort icon' onClick={()=>handleSort(!clicked)}></img>
                 </div>
-                <div className='card-content flex'>
+                { clicked === true ? (
+                <SortedSongs filteredsongs={sortdata} countLike={countLike} handleLike={handleLike} bgColor={cardBackgroundColor} />) 
+                :( <div className='card-content flex'>
                 {songData.map((eachSong, index) => {
-                  return <SongCard className='each-card-content' key={eachSong.id} index={index} id={eachSong.id} data={eachSong} countLike={countLike[index]} handleLike={handleLike}/>
+                  return <SongCard className='each-card-content' key={eachSong.id} index={index} id={eachSong.id} data={eachSong} countLike={countLike[index]} handleLike={handleLike} bgColor={cardBackgroundColor[index % 2]}/>
                 })}
                 </div>
+                )}
         </div>
     )
 }
