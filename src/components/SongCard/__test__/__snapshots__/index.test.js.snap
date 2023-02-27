@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`song card should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="card-body "
+  >
+    <img
+      alt="song"
+      class="card-img"
+      src="https://i.scdn.co/image/ab67616d0000b27386a8ab515de4b7aef28cd631"
+    />
+    <div
+      class="card-footer "
+    >
+      <div
+        class="left-section "
+      >
+        <p
+          class="song-name"
+        >
+          Lost
+        </p>
+        <h4>
+          Maroon 5
+        </h4>
+      </div>
+      <div
+        class="heart-count"
+      >
+        <img
+          alt="heart"
+          class="heart-img"
+          src="heart-gray.svg"
+        />
+        <h6
+          class="count"
+        >
+          1
+        </h6>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

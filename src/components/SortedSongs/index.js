@@ -1,20 +1,33 @@
 import React from "react";
 import SongCard from "../SongCard";
-import GenreWiseSongs from "../GenreWiseSongs";
 
 import './SortedSongs.css'
 
-function SortedSongs({filteredsongs, countLike, handleLike, bgColor}){
-    let genres = Object.keys(filteredsongs);
-    return (
-         <div>
-        {genres.map((genre)=> {
-         const genreimg = require(`../../assets/Image/genre-${genre.toLowerCase()}.png`)
-           return <GenreWiseSongs key={genre} genre={genre} data={filteredsongs[genre]} countLike={countLike} handleLike={handleLike} bgColor={bgColor} imgsrc={genreimg}   />
-        })}
-       </div>
-      
-    );
+function SortedSongs({ genre, songData, countLike, handleLike, bgColor }) {
+   return (
+      <div>
+         {
+            genre.map((genre) => {
+               const imgsrc = require(`../../assets/Image/genre-${genre.toLowerCase()}.png`);
+               return (
+                  <>
+                     <div className="header-genre">
+                        <img src={imgsrc} alt="genre" ></img>
+                        <button className="primary-button small-bold-text">{genre}</button>
+                     </div>
+                     <div className="card-content flex">
+                        {songData.map((eachSong, index) => eachSong.genre.name === genre ? (
+                           <SongCard className='each-card-content' key={eachSong.id} index={index} id={eachSong.id} data={eachSong} countLike={countLike[index]} handleLike={handleLike} bgColor={bgColor[index % 2]} />
+                        ) : <></>
+                        )}
+                     </div>
+                  </>
+               )
+            })
+         }
+      </div>
+
+   );
 }
 
 export default SortedSongs;
